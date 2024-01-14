@@ -3,26 +3,27 @@
       <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
     </div>
     <div class="card-body">
-      <form [formGroup]="productos" (ngSubmit)="grabar()">
+      
+        <form [formGroup]="stocks" (ngSubmit)="grabar()">
         <div class="mb-2">
-          <label for="Nombre">Nombres</label>
-          <input type="text" class="form-control" formControlName="Nombre" />
-          @if (productos.invalid && (productos.dirty || productos.touched)) {
+          <label for="ProductoId">ProductoId</label>
+          <input type="text" class="form-control" formControlName="ProductoId" />
+          @if (stocks.invalid && (stocks.dirty || stocks.touched)) {
           <div class="alert">
-            @if (productos.errors?.["required"]) {
-            <div class="ng-invalid">Nombre es requerido</div>
+            @if (stocks.errors?.["required"]) {
+            <div class="ng-invalid">ProductoId es requerido</div>
             }
           </div>
           }
         </div>
 
         <div class="mb-2">
-            <label for="Precio">Precio</label>
-            <input type="text" class="form-control" formControlName="Precio" />
-            @if (productos.invalid && (productos.dirty || productos.touched)) {
+            <label for="ProveedorId">ProveedorId</label>
+            <input type="text" class="form-control" formControlName="ProveedorId" />
+            @if (stocks.invalid && (stocks.dirty || stocks.touched)) {
             <div class="alert">
-              @if (productos.errors?.["required"]) {
-              <div class="ng-invalid">Precio es requerido</div>
+              @if (stocks.errors?.["required"]) {
+              <div class="ng-invalid">ProveedorId es requerido</div>
               }
             </div>
             }
@@ -32,10 +33,22 @@
           <div class="mb-2">
             <label for="Cantidad">Cantidad</label>
             <input type="text" class="form-control" formControlName="Cantidad" />
-            @if (productos.invalid && (productos.dirty || productos.touched)) {
+            @if (stocks.invalid && (stocks.dirty || stocks.touched)) {
             <div class="alert">
-              @if (productos.errors?.["required"]) {
+              @if (stocks.errors?.["required"]) {
               <div class="ng-invalid">Cantidad es requerido</div>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="mb-2">
+            <label for="Precio_Venta">Precio_Venta</label>
+            <input type="text" class="form-control" formControlName="Precio_Venta" />
+            @if (stocks.invalid && (stocks.dirty || stocks.touched)) {
+            <div class="alert">
+              @if (stocks.errors?.["required"]) {
+              <div class="ng-invalid">Precio_Venta es requerido</div>
               }
             </div>
             }
@@ -46,11 +59,11 @@
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="!productos.valid"
+            [disabled]="!stocks.valid"
           >
             Grabar
           </button>
-          <button class="btn btn-secondary" routerLink="/productos">
+          <button class="btn btn-secondary" routerLink="/stocks">
             Cancelar
           </button>
         </div>

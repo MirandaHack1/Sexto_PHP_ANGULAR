@@ -21,13 +21,14 @@ export class NuevoStockComponent {
   title = '';
   id!: number;
 
-  productos: FormGroup = new FormGroup({
-    Nombre: new FormControl('', Validators.required),
-    Precio: new FormControl('', Validators.required),
+  stocks: FormGroup = new FormGroup({
+    ProductoId: new FormControl('', Validators.required),
+    ProveedorId: new FormControl('', Validators.required),
     Cantidad: new FormControl('', Validators.required),
+    Precio_Venta: new FormControl('', Validators.required),
   });
   constructor(
-    private productosServicio: ProductosService,
+    private stocksServicio: StockService,
     private rutas: Router,
     private parametros: ActivatedRoute
   ) {}
@@ -36,26 +37,27 @@ export class NuevoStockComponent {
     this.id = this.parametros.snapshot.params['id'];
     console.log(this.id);
     if (this.id == 0 || this.id == undefined) {
-      this.title = 'Nuevo Producto';
+      this.title = 'Nuevo Stocks';
     } else {
-      this.title = 'Actualizar Producto';
-      this.productosServicio.uno(this.id).subscribe((res) => {
+      this.title = 'Actualizar Stocks';
+      this.stocksServicio.uno(this.id).subscribe((res) => {
         console.log(res);
-        this.productos.patchValue({
-          Nombre: res.Nombre,
-          Precio: res.Precio,
+        this.stocks.patchValue({
+          ProductoId: res.ProductoId,
+          ProveedorId: res.ProveedorId,
           Cantidad: res.Cantidad,
+          Precio_Venta: res.Precio_Venta,
         });
       });
     }
   }
   get f() {
-    return this.productos.controls;
+    return this.stocks.controls;
   }
 
   grabar() {
     Swal.fire({
-      title: 'Productos',
+      title: 'stocks',
       text: 'Esta seguro que desea guardar el registro',
       icon: 'warning',
       showCancelButton: true,
@@ -65,33 +67,33 @@ export class NuevoStockComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.id == 0 || this.id == undefined) {
-          this.productosServicio
-            .insertar(this.productos.value)
+          this.stocksServicio
+            .insertar(this.stocks.value)
             .subscribe((res) => {
               Swal.fire({
-                title: 'Productos',
+                title: 'stocks',
                 text: 'Se insertó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/productos']);
+              this.rutas.navigate(['/stocks']);
               this.id = 0;
             });
         } else {
-          this.productosServicio
-            .actualizar(this.productos.value, this.id)
+          this.stocksServicio
+            .actualizar(this.stocks.value, this.id)
             .subscribe((res) => {
               Swal.fire({
-                title: 'Productos',
+                title: 'stocks',
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/productos']);
+              this.rutas.navigate(['/stocks']);
               this.id = 0;
             });
         }
       } else {
         Swal.fire({
-          title: 'Productos',
+          title: 'stocks',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });
